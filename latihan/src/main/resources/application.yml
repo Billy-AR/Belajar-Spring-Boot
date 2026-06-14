@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: jobportal
+
+  datasource:
+    url: jdbc:mysql://${DATABASE_HOST:127.0.0.1}:${DATABASE_PORT:3306}/${DATABASE_NAME:jobportal}
+    username: ${DATABASE_USERNAME:root}
+    password: ${DATABASE_PASSWORD:root}
+
+  jpa:
+    show-sql: ${SHOW_SQL:true}
+    properties:
+      hibernate:
+        format_sql: ${HIBERNTE_FORMAT_SQL:true}
+        default_batch_fetch_size: ${DEFAULT_BATCH_FETCH_SIZE:50}
+#    hibernate:
+#      ddl-auto: update
+
+logging:
+   pattern:
+#     console: ${CONSOLE_LOG_PATTERN:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %cyan(%msg%n)}
+    file: ${"timestamp":"%d{yyyy-MM-dd HH:mm:ss}","level":"%p","logger":"%c","message":"%m"}
+   group:
+    jobportal_error: com.backend.latihan.company,com.backend.latihan.jobportal.security,com.backend.latihan.jobportal.contact
+   file:
+    name: logs/jobportal.log
