@@ -49,15 +49,29 @@ public class JobPortalSecurityConfig {
     @Qualifier("adminPaths")
     private final List<String> adminPaths;
 
+    @Qualifier("employerPaths")
+    private final List<String> employerPaths;
+
+    @Qualifier("jobseekerPaths")
+    private final List<String> jobseekerPaths;
+
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) {
        return http.csrf(csrfConfig -> csrfConfig.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
                .cors(corsConfig -> corsConfig.configurationSource(corsConfigurationSource())).authorizeHttpRequests((requests) -> {
            publicPaths.forEach(path -> requests.requestMatchers(path).permitAll());
+
+
+           employerPaths.forEach(path -> requests.requestMatchers(path).hasRole("EMPLOYER"));
+
+                   jobseekerPaths.forEach(path -> requests.requestMatchers(path).hasRole("JOB_SEEKER"));
+
            securedPaths.forEach(path -> requests.requestMatchers(path).authenticated());
+
                    adminPaths.forEach(
                            path -> requests.requestMatchers(path).hasRole("ADMIN")
                    );
+
            requests.anyRequest().denyAll();
                        }).addFilterBefore(new JwtTokenValidationFilter(publicPaths), BasicAuthenticationFilter.class)
                .formLogin(loginConf -> loginConf.disable())

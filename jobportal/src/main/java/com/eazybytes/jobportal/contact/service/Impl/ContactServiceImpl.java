@@ -83,9 +83,8 @@ public class ContactServiceImpl implements IContactService {
         // 3 - To delete the record
        int updatedRows= contactRepository.updateStatusById(status,id, ApplicationUtility.getLoggedInUser());
 
-       throw new NullPointerException("It is a bad day");
+       return updatedRows > 0;
 
-       //return updatedRows > 0;
 
     }
 

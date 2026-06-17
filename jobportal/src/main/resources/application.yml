@@ -16,6 +16,13 @@ spring:
 #    hibernate:
 #      ddl-auto: none
 
+#  cache:
+#    type: CAFFEINE
+#    cache-names:
+#      - jobs,companies,roles
+#    caffeine:
+#      spec: maximumSize=5000,expireAfterWrite=1m
+
 logging:
   pattern:
 #    console: ${CONSOLE_LOG_PATTERN:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %cyan(%msg%n)}
