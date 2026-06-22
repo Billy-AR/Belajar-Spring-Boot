@@ -60,5 +60,7 @@ public class JobPortalUser extends BaseEntity {
     private Set<Job> savedJobs = new LinkedHashSet<>();
 
 
+    @OneToMany(mappedBy = "user")
+    private Set<JobApplication> jobApplications = new LinkedHashSet<>();
 
 }

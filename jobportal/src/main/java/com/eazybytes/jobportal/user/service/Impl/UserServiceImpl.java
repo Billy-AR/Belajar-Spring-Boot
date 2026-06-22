@@ -136,10 +136,13 @@ public class UserServiceImpl implements IUserService {
         // Validate if user exists
         JobPortalUser user = userRepository.findJobPortalUserByEmail(userEmail)
                 .orElseThrow(() -> new RuntimeException("User not found with email: " + userEmail));
+
         // Validate job exists
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new RuntimeException("Job not found with ID: " + jobId));
+
         user.getSavedJobs().add(job);
+
         // userRepository.save(user);
         return ApplicationUtility.transformJobToDto(job);
     }
